@@ -1,0 +1,28 @@
+{
+  "name": "lesson12",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibroximov13/home_work_12.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ibroximov13/home_work_12/issues"
+  },
+  "homepage": "https://github.com/ibroximov13/home_work_12#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "joi": "^17.13.3",
+    "mysql2": "^3.13.0",
+    "sequelize": "^6.37.6"
+  }
+}

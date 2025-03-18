@@ -1,0 +1,1 @@
+const {Region} = require("../model/index"); // shu tariqa chaqirilishi kerak
