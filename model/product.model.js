@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../config/db");
-const Category = require("./category.model");
 
 const Product = db.define("products", {
     id: {
@@ -41,8 +40,5 @@ const Product = db.define("products", {
         allowNull: true
     }
 });
-
-//user yozilsa ulanadi
-
 
 module.exports = Product;
