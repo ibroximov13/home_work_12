@@ -58,4 +58,4 @@ User.hasMany(Order, { foreignKey: "userId", as: "orders" });
 User.hasMany(Product, { foreignKey: "authorId", as: "products" });
 User.hasMany(Comment, { foreignKey: "userId", as: "comments" });
 
-export default User;
+export default User
