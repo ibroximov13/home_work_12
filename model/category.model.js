@@ -4,7 +4,7 @@ const { db } = require("../config/db");
 const Category = db.define("categories", {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
+        autoIncrement: true, 
         primaryKey: true
     },
     name: {
