@@ -1,9 +1,14 @@
-const { Comment, User, Product } = require('../models');
+const { Comment, User, Product } = require('../model');
 const logger = require('../logs/winston');
+const { CommentValidationCreate } = require('../validation/comment.validation');
 
 exports.createComment = async (req, res) => {
     try {
-        const comment = await Comment.create(req.body);
+        let {error, value} = CommentValidationCreate.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+        const comment = await Comment.create(value);
         res.status(201).json(comment);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -57,9 +62,13 @@ exports.getCommentsByProductId = async (req, res) => {
 
 exports.updateComment = async (req, res) => {
     try {
+        let {error, value} = CommentValidationCreate.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
         const comment = await Comment.findByPk(req.params.id);
         if (!comment) return res.status(404).json({ message: "Comment not found" });
-        await comment.update(req.body);
+        await comment.update(value);
         res.status(200).json(comment);
     } catch (err) {
         res.status(500).json({ error: err.message });

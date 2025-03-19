@@ -1,9 +1,14 @@
-const { Category } = require('../models');
-const logger = require('../utils/logger');
+const logger = require('../logs/winston');
+const { Category } = require('../model');
+const { CategoryValidationCreate } = require('../validation/category.validation');
 
 exports.createCategory = async (req, res) => {
     try {
-        const category = await Category.create(req.body);
+        let {error, value} = CategoryValidationCreate.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+        const category = await Category.create(value);
         res.status(201).json(category);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -32,9 +37,13 @@ exports.getCategoryById = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
     try {
+        let {error, value} = CategoryValidationCreate.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
         const category = await Category.findByPk(req.params.id);
         if (!category) return res.status(404).json({ message: "Category not found" });
-        await category.update(req.body);
+        await category.update(value);
         res.status(200).json(category);
     } catch (err) {
         res.status(500).json({ error: err.message });

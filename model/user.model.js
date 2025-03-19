@@ -1,13 +1,9 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../config/db.js";
-import Region from "./region.model.js";
-import Order from "./order.model.js";
-import Product from "./product.model.js";
-import Comment from "./comment.model.js";
+const { DataTypes } = require("sequelize");
+const { db } = require("../config/db.js");
 
-const User = sequelize.define("User", {
+const User = db.define("users", {
   id: {
-    type: DataTypes.INT,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
@@ -32,11 +28,11 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  regionId: {
-    type: DataTypes.BIGINT,
+  region_id: {
+    type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "region",
+      model: "regions",
       key: "id",
     },
   },
@@ -53,9 +49,4 @@ const User = sequelize.define("User", {
   timestamps: false,
 });
 
-User.belongsTo(Region, { foreignKey: "regionId", as: "region" });
-User.hasMany(Order, { foreignKey: "userId", as: "orders" });
-User.hasMany(Product, { foreignKey: "authorId", as: "products" });
-User.hasMany(Comment, { foreignKey: "userId", as: "comments" });
-
-export default User;
+module.exports =  User;

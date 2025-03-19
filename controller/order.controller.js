@@ -1,9 +1,14 @@
-const { Order, OrderItem, Product, User } = require('../models');
+const { Order, OrderItem, Product, User } = require('../model');
 const logger = require('../logs/winston');
+const OrderValidation = require('../validation/order.validation');
 
 exports.createOrder = async (req, res) => {
     try {
-        const order = await Order.create(req.body);
+        let {error, value} = OrderValidation.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+        const order = await Order.create(value);
         res.status(201).json(order);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -66,9 +71,13 @@ exports.getOrdersByUserId = async (req, res) => {
 
 exports.updateOrder = async (req, res) => {
     try {
+        let {error, value} = OrderValidation.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
         const order = await Order.findByPk(req.params.id);
         if (!order) return res.status(404).json({ message: "Order not found" });
-        await order.update(req.body);
+        await order.update(value);
         res.status(200).json(order);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -111,3 +120,5 @@ exports.getOrderItemsByProductId = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+//orderItem qoshish kerak post

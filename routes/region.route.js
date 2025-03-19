@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const regionController = require('../controllers/region.controller');
+const regionController = require('../controller/region.controller');
 
 router.get('/', regionController.getAllRegions);
 router.get('/:id', regionController.getRegionById);

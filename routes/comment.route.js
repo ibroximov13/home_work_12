@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const commentController = require('../controllers/comment.controller');
+const commentController = require('../controller/comment.controller');
 
 router.get('/', commentController.getAllComments);
 router.get('/:id', commentController.getCommentById);

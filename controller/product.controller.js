@@ -1,9 +1,14 @@
-const { Product, Category, User } = require('../models');
+const { Product, Category, User } = require('../model');
 const logger = require('../logs/winston');
+const { ProductValidationCreate } = require('../validation/product.validation');
 
 exports.createProduct = async (req, res) => {
     try {
-        const product = await Product.create(req.body);
+        let {error, value} = ProductValidationCreate.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+        const product = await Product.create(value);
         res.status(201).json(product);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -57,9 +62,13 @@ exports.getProductsByCategoryId = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
+        let {error, value} = ProductValidationCreate.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
         const product = await Product.findByPk(req.params.id);
         if (!product) return res.status(404).json({ message: "Product not found" });
-        await product.update(req.body);
+        await product.update(value);
         res.status(200).json(product);
     } catch (err) {
         res.status(500).json({ error: err.message });
