@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const logger = require('../logs/winston');
 const { Category } = require('../model');
 const { CategoryValidationCreate } = require('../validation/category.validation');
@@ -17,7 +18,23 @@ exports.createCategory = async (req, res) => {
 
 exports.getAllCategories = async (req, res) => {
     try {
-        const categories = await Category.findAll();
+        // const page = req.query.page || 1;
+        // const limit = req.query.take || 10;
+        // const offset = (page - 1) * limit;
+
+        // const name = req.query.name || "";
+        // let order = req.query.order === "DESC" ? "DESC" : "ASC";
+        // let column = req.query.column || "id";
+
+        const categories = await Category.findAll(
+            // {
+            // where: {
+            //     name: {
+            //         [Op.like]: `%${name}%`
+            //     }
+            // }
+        // }
+    );
         res.status(200).json(categories);
     } catch (err) {
         res.status(500).json({ error: err.message });
