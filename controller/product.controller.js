@@ -1,5 +1,5 @@
 const { Product, Category, User } = require('../models');
-const logger = require('../utils/logger');
+const logger = require('../logs/winston');
 
 exports.createProduct = async (req, res) => {
     try {

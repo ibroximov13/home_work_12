@@ -1,5 +1,5 @@
 const { Comment, User, Product } = require('../models');
-const logger = require('../utils/logger');
+const logger = require('../logs/winston');
 
 exports.createComment = async (req, res) => {
     try {

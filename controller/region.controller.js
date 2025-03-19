@@ -1,5 +1,5 @@
 const { Region } = require('../models');
-const logger = require('../utils/logger');
+const logger = require('../logs/winston');
 
 exports.createRegion = async (req, res) => {
     try {
