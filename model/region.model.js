@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../config/db");
 
-const Regoin = db.define("regions", {
+const Region = db.define("regions", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -13,4 +13,4 @@ const Regoin = db.define("regions", {
     }
 });
 
-module.exports = Regoin;
+module.exports = Region;
